@@ -15,9 +15,12 @@ def run_nmap(domain, port):
     return output
 
 def check_cipher_security(cipher, for_report=False):
-    cipher_length = re.search(r"\d{1,4}$", cipher).group()
-    if int(cipher_length) < 128:
-        return "Cipher length below 128"
+    cipher_length = re.search(r"\d{1,4}$", cipher)
+    #if cipher_length == 0 or cipher_length == None:
+    if cipher_length: 
+        cipher_length = cipher_length.group() 
+        if int(cipher_length) < 128:
+            return "Cipher length below 128"
     if "NULL" in cipher:
         if for_report:
            return "SSL/TLS - Weak Encryption Ciphers - Cipher suites using NULL (anonymous)."
@@ -174,7 +177,7 @@ def main():
    
     print(f"\nStoring {domain} results on {port} in file {Fore.GREEN + domain}_{port}_report.html{Fore.RESET}")
     with open(f"{domain}_{port}_report.html", "w") as f:
-        print("\n+ Analysing Results for below ciphers....")
+        print(f"\n+ Analysing Results for below ciphers for target : {domain}\n ")
         print(*ciphers, sep="\n")
         print("\n")
         print("+ Cross checking all ciphers on ciphersuite.info\n")
@@ -185,17 +188,18 @@ def main():
         for cipher in ciphers:
             security = check_cipher_security(cipher)
             f.write(f"<tr><td>{domain}</td><td><a href='https://ciphersuite.info/search/?q={cipher}' target='_blank'>{cipher}</a></td><td>{check_cipher_security(cipher, True)}</td></tr>\n")
-            print(f"- Target : {domain}\n Cipher Name : {Fore.YELLOW + cipher + Fore.RESET}, Status : {security}")
+            print(f"- Cipher Name : {Fore.YELLOW + cipher + Fore.RESET}, Status : {security}")
         f.write("</table><br>")
         f.write("\n<table>\n<tr><th>Target</th><th>TLS Version</th><th>Recommendation</th></tr>\n")
         
-        print("\n+ Analysing Results for found TLS versions....")
-        print(*TLS, sep="\n")
+        print(f"\n+ Analysing Results for found TLS versions for target : {domain}")
+        print("- ",end="")
+        print(*TLS, sep="\n- ")
         print("\n")
         for TLSCheck in TLS:
             sec_TLS = check_cipher_security_TLS(TLSCheck)
             f.write(f"<tr><td>{domain}</td><td>{TLSCheck}</td><td>{check_cipher_security_TLS(TLSCheck, True)}</td></tr>\n")
-            print(f"- Target : {domain}\n TLS Version : {TLSCheck}, Status : {check_cipher_security_TLS(TLSCheck)}")
+            print(f"- TLS Version : {TLSCheck}, Status : {check_cipher_security_TLS(TLSCheck)}")
         f.write("</table><br>")
         f.write("</body><br></html>")
     print(f"\n+ Report for {domain} on port {port} is available at {Fore.GREEN + domain}_{port}_report.html{Fore.RESET}\n+ NMAP results fo analysis stored in {Fore.GREEN}outputfile_{domain}_{port}.xml{Fore.RESET}")
