@@ -15,6 +15,9 @@ def run_nmap(domain, port):
     return output
 
 def check_cipher_security(cipher, for_report=False):
+    cipher_length = re.search(r"\d{1,4}$", cipher).group()
+    if int(cipher_length) < 128:
+        return "Cipher length below 128"
     if "NULL" in cipher:
         if for_report:
            return "SSL/TLS - Weak Encryption Ciphers - Cipher suites using NULL (anonymous)."
@@ -35,12 +38,15 @@ def check_cipher_security(cipher, for_report=False):
            return "SSL/TLS - Weak Encryption Ciphers - Cipher suites using CBC."
         else:
            return Fore.RED + "SSL/TLS - Weak Encryption Ciphers - Cipher suites using CBC." + Fore.RESET
-    if "AES" in cipher:
-        cipher_length = re.search(r"\d+", cipher).group()
-        if int(cipher_length) < 128:
-            return "Cipher length below 128"
-    print("+ Cross checking on ciphersuite.info")
-    cmd = f'curl -s "https://ciphersuite.info/search/?q={cipher}" | findstr "badge bg-fixed-width"'
+
+    
+    if os.name =="nt":
+                cmd = f'curl -s "https://ciphersuite.info/search/?q={cipher}" | findstr "badge bg-fixed-width"'
+
+    else:
+                cmd = f'curl -s "https://ciphersuite.info/search/?q={cipher}" | grep "badge bg-fixed-width"'
+
+    #cmd = f'curl -s "https://ciphersuite.info/search/?q={cipher}" | findstr "badge bg-fixed-width"'
     try:
         output = subprocess.check_output(cmd, shell=True, universal_newlines=True)
     except subprocess.CalledProcessError:
@@ -82,10 +88,10 @@ def check_cipher_security_TLS(TLS, for_report_TLS=False):
            return Fore.YELLOW + "TLS 1.2 can still be used, it is considered safe only when weak ciphers and algorithms are removed." + Fore.RESET
     if "1.3" in TLS:
         if for_report_TLS:
-           return "TLS 1.1 have been completely deprecated."
+           return "TLS 1.3 is Recommended."
         else:
-           return Fore.GREEN + "TLS 1.1 have been completely deprecated." + Fore.RESET
-    return "Unknown TLS."
+           return Fore.GREEN + "TLS 1.3 is Recommended." + Fore.RESET
+    return "Unknown TLS Status."
 
 
 def banner():
@@ -161,7 +167,8 @@ def main():
     print(f"\nResults will be stored in {Fore.RED + domain}_{port}_report.html{Fore.RESET}")
     nmap_output = run_nmap(domain, port)
     ciphers = re.findall(r"(?<=TLS_).*?(?= )", nmap_output)
-    TLS = re.findall(r"(?<=TLSv).*?(?= )", nmap_output)
+    #TLS = re.findall(r"(?<=TLSv).*?(?= )", nmap_output)
+    TLS = re.findall(r"TLSv\d\.\d", nmap_output)
     print(nmap_output)
     print("+ Scan Completed.")
    
@@ -170,6 +177,7 @@ def main():
         print("\n+ Analysing Results for below ciphers....")
         print(*ciphers, sep="\n")
         print("\n")
+        print("+ Cross checking all ciphers on ciphersuite.info\n")
         f.write(f"<html>\n<title>Report for {domain} on port {port}</title>\n")
         f.write("<link rel='stylesheet' href='style.css'>\n<body>")
         f.write(f"<center><h1>Report for {domain} on port {port}</h1><br><h3>SSL/TLS - Weak Encryption Ciphers</h3></center><br>")
