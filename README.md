@@ -6,21 +6,15 @@ This is a Python script that checks the cipher suite of a domain or IP address a
 
 1.  Clone the repository:
 
-bashCopy code
-
-`git clone https://github.com/yourusername/cipher-suite-checker.git` 
+`git clone https://github.com/anmolksachan/WhatTheCipher.git` 
 
 2.  Install the necessary dependencies:
-
-bashCopy code
 
 `pip install -r requirements.txt` 
 
 3.  Run the script:
 
-bashCopy code
-
-`python cipher_suite_checker.py` 
+`python WTC.py` 
 
 ## Usage
 
