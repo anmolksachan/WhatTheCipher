@@ -1,6 +1,6 @@
-# Cipher Suite Checker
+# What The Cipher
 
-This is a Python script that checks the cipher suite of a domain or IP address and generates a report on its security status. It uses Nmap and ciphersuite.info to perform the analysis.
+Cipher Suite Checker - This is a Python script that checks the cipher suite of a domain or IP address and generates a report on its security status. It uses Nmap and ciphersuite.info to perform the analysis.
 
 ## Installation
 
