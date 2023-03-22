@@ -184,7 +184,7 @@ def main():
             print("\n")
             print("+ Cross checking all ciphers on ciphersuite.info\n")
             f.write(f"<html>\n<title>Report for {domain} on port {port}</title>\n")
-            f.write("<link rel='stylesheet' href='style.css'>\n<body>")
+            f.write("<link rel='stylesheet' href='https://raw.githubusercontent.com/anmolksachan/WhatTheCipher/main/style.css'>\n<body>")
             f.write(f"<center><h1>Report for {domain} on port {port}</h1><br><h3>SSL/TLS - Weak Encryption Ciphers</h3></center><br>")
             f.write("\n<table>\n<tr><th>Target</th><th>Cipher Name</th><th>Status</th></tr>\n")
             for cipher in ciphers:
