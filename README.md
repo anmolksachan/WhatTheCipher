@@ -23,7 +23,7 @@ Cipher Suite Checker - This is a Python script that checks the cipher suite of a
 1.  Enter the domain name or IP address you want to analyze when prompted.
 2.  Enter the port number you want to analyze when prompted.
 3.  Wait for the script to complete.
-4.  Check the results in the generated report file, named `{domain}_{port}_report.html`.
+4.  Check the results in the generated report file that you provided.
 
 ## Features
 
