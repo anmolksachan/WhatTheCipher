@@ -2,20 +2,13 @@
 
 # WhatTheCipher
 
-**Modern TLS/SSL assessment framework — protocols, ciphers, certificates, grading & reports.**
+**Modern TLS/SSL assessment framework - protocols, ciphers, certificates, grading & reports.**
 
 *by [Anmol K Sachan](https://github.com/anmolksachan) · [@FR13ND0x7F](https://x.com/FR13ND0x7F)*
 
-</div>
+<img width="569" height="124" alt="image" src="https://github.com/user-attachments/assets/06dbd3e0-35d1-4bbe-b215-5b7b013188ec" />
 
-```
-        _    _ _           _   _____ _          ____ _       _
-       | |  | | |         | | |_   _| |        / ___(_)_ __ | |_  ___ _ _
-       | |  | | |__   __ _| |_  | | | |__   ___| |   | | '_ \| '_ \/ -_) '_|
-       | |/\| | '_ \ / _` | __| | | | '_ \ / _ \ |   | | |_) | | | \___|_|
-       \  /\  / | | | (_| | |_  | | | | | |  __/ |___| | .__/| | | |
-        \/  \/|_| |_|\__,_|\__| \_/ |_| |_|\___|\____|_|_|   |_| |_|
-```
+</div>
 
 ---
 
@@ -99,6 +92,20 @@ wtc --nmap-xml scan.xml
 wtc example.com --no-banner --no-details
 wtc example.com --verbose --log-file scan.log
 ```
+
+## 🎥 Demo
+
+<p align="center">
+  <a href="https://youtu.be/qkScqMZy_ic">
+    <img src="https://img.youtube.com/vi/qkScqMZy_ic/maxresdefault.jpg"
+         alt="Watch WTC Demo"
+         width="900">
+  </a>
+</p>
+
+<p align="center">
+  <b>▶️ Click the image to watch the full demo</b>
+</p>
 
 ### All flags
 
