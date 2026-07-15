@@ -68,6 +68,8 @@ Requires **Python ≥ 3.11**. Dependencies: `rich`, `cryptography`.
 
 ## Usage
 
+<img width="1355" height="708" alt="image" src="https://github.com/user-attachments/assets/cc598de7-b311-4ecd-8ec4-405b562a0fe2" />
+
 ```bash
 wtc example.com                       # single host
 wtc example.com -p 8443               # custom port
